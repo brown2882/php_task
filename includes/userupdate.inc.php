@@ -10,8 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     try {
         require_once "dbh.inc.php";
 
-        $query = "INSERT INTO users (username, pwd, email) VALUES 
-        (:username, :pwd, :email);";
+        $query = "UPDATE users SET username = :username, pwd = :pwd, email = :email WHERE id = 1;";
 
         $stmt = $pdo->prepare($query);
 
@@ -25,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
         $pdo = null;
         $stmt = null;
 
-        header("Location: ../lessonOne.php");
+        header("Location: ../lessontree/deleteUpdateform.php");
         exit();
 
         } catch (PDOException $e) {
@@ -33,5 +32,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     }
 }
 else {
-    header("Location: ../lessonOne.php");
+    header("Location: ../lessontree/deleteUpdateform.php");
 }
