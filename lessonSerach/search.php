@@ -2,7 +2,7 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     $userSearch = $_POST["usersearch"];
-  //changeeeeeeee
+  
   
 
     try {
@@ -12,27 +12,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
 
         $stmt = $pdo->prepare($query);
 
-        $stmt->bindParam(":userSearch", $userSearch);
+        $stmt->bindParam(":usersearch", $userSearch);
        
 
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        var_dump($result);
+        die();
+        
         //14:27
         $pdo = null;
         $stmt = null;
+        die();
 
-       die();
-
-        } catch (PDOException $e) {
+    } catch (PDOException $e) {
        die("Query failed: " . $e->getMessage());
-    }
+    } 
+   
 }
 else {
     header("Location: ../lessonOne.php");
 }
-?>
+
+
+
+?> 
 
 
 <!DOCTYPE html>
@@ -44,5 +50,21 @@ else {
 </head>
 <body>
     
+    <h3>Serach result:</h3>
+    <?php
+    if (empty($result)) {
+        echo "<div>";
+        echo "<p>There were no result</p>";
+        echo "</div>";
+    }
+    else {
+       foreach ($result as $row) {
+            echo htmlspecialchars($row["username"]) ;
+            echo htmlspecialchars($row["comment_text"]);
+            echo htmlspecialchars($row["created_at"]);
+       }
+    }
+
+    ?>
 </body>
 </html>
