@@ -55,7 +55,8 @@
     <?php      $dsn = mysqli_connect('localhost', 'root', '');      
     // root is the default username     
     // ' ' is the default password   
-     if (! $dsn) {               die("Connection failed" . mysqli_connect_error());      }      else {            
+     if (! $dsn) {               die("Connection failed" . mysqli_connect_error());      }    
+     else {            
            // connect to the database named Pagination         
                mysqli_select_db($dsn, 'lesson');      }     
                 // variable to store number of rows per page   
@@ -68,21 +69,32 @@
                          // get the required number of pages  
                            $total_pages = ceil ($total_rows / $limit);    
                                // update the active page number    
-                               if (!isset ($_GET['page']) ) {          $page_number = 1;      } else {          $page_number = $_GET['page'];      }      
+                                if (!isset ($_GET['page']) ) {      
+                                    $page_number = 1;      }
+                                else {  
+                                              $page_number = $_GET['page'];   
+                                       }      
                                  // get the initial page number  
-                                   $initial_page = ($page_number-1) * $limit;      
+                                $initial_page = ($page_number-1) * $limit;      
                                     // get data of selected rows per page      
-                                      $getQuery = "SELECT *FROM users LIMIT " . $initial_page . ',' . $limit;      $result = mysqli_query($dsn, $getQuery);          
+                                $getQuery = "SELECT *FROM users LIMIT " . $initial_page . ',' . $limit;      $result = mysqli_query($dsn, $getQuery);          
                                        //display the retrieved result on the webpage     
-                                        while ($row = mysqli_fetch_array($result)) {          echo $row['id'] . ' ' . $row['username'] . ' ' . $row['email'] . '</br>';      }       
-                                         // show page number with link      
-                                          for($page_number = 1; $page_number<= $total_pages; $page_number++) {          echo '<a href = "commentShow.php?page=' . $page_number . '">' . $page_number . ' </a>';      }    ?> 
-                                        
-
-
+                                while ($row = mysqli_fetch_array($result)) {      
+                                        echo $row['id'] . ' ' . $row['username'] . ' ' . $row['email'] . '</br>';  
+                                            
+                                          }       
+                                 // show page number with link      
+                                //   for($page_number = 1; $page_number<= $total_pages; $page_number++) {     
+                                            
+                                //        echo '<a href = "commentShow.php?page=' . $page_number . '">' . $page_number . ' </a>';    
+                                //     }  
+                                         echo '<a href="commentShow.php?page=' . '1' . '">' . '<button>' . '1' . '</button>' . '</a>';
+                                         echo '<a href = "commentShow.php?page=' . "2". '">' . "2" . ' </a>';
+                                         echo '<a href = "commentShow.php?page=' . "3". '">' . '<button>' . '3' . '</button>' . '</a>';
+                                         ?> 
     
    
-   
+ 
 
 </body>
 </html>
