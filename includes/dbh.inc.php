@@ -5,13 +5,19 @@ $dbusername = "root";
 $dbpassword = "";
 
 
+ //----------------------------------------
+
+ if(! $dsn) {
+    die("Connection failed" . mysqli_connect_error());
+ } else {
+     // connect to the database named lesson 
+    mysqli_select_db($dsn, 'lesson');
+ }
+
+       
 
 try {
     $pdo = new PDO($dsn, $dbusername, $dbpassword);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
-}
-
-
-
+};
